@@ -1,5 +1,5 @@
 <?php
-   include ('config/database.php');
+   include ('../config/database.php');
     $fname= $_POST['f_name'];
     $lname= $_POST['l_name'];
     $email= $_POST['e_mail'];
@@ -26,7 +26,7 @@
     echo "User already exist !!!";
     }else{
 
-        $sql = "INSERT INTO users 
+        $sql = "INSERT INTO users
         (firstname, lastname, email, password) 
         VALUES ('$fname', '$lname', '$email', '$hashed_password')
     ";
