@@ -1,13 +1,24 @@
 <?php
-   include ('../config/database.php');
+session_start();
+include 'tu_conexion.php'; // si tienes un archivo de conexión
 
-   session_start();
-    if(!isset($_SESSION['users_id'])){
+// obtener datos del formulario
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-header('Refresh:0; URL=http://localhost/pet-store2/src/login.html');
+// consulta para verificar usuario
+$query = "SELECT * FROM users WHERE email = '$email'";
+$result = pg_query($conn, $query);
+$user = pg_fetch_assoc($result);
 
+if ($user && password_verify($password, $user['password'])) {
+    $_SESSION['username'] = $user['firstname'] . ' ' . $user['lastname'];
+    header("Location: dashboard.php");
+} else {
+    echo "Credenciales inválidas";
+}
+?>
 
-    }
 
    $email= $_POST['e_mail'];
    $passw= $_POST['p_assw'];
